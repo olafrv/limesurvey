@@ -16,7 +16,7 @@ services:
     networks:
       - proxy
     volumes:
-      - limesurvey_mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
       MYSQL_HOST: "localhost"
@@ -40,7 +40,7 @@ services:
      depends_on:
        - db
 volumes:
-    limesurvey_mysql:
+    mysql:
 
 networks:
   proxy:
