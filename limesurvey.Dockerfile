@@ -1,4 +1,4 @@
-FROM daycohost/apache_php:2.4_7.2
+FROM olafrv/apache_php:2.4_7.2
 MAINTAINER Olaf Reitmaier <olafrv@gmail.com>
 WORKDIR /var/www/html/limesurvey
 COPY limesurvey .

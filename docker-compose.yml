@@ -2,7 +2,7 @@ version: '2'
 
 services:
   web:
-    image: daycohost/limesurvey:3.15
+    image: olafrv/limesurvey:3.15
     container_name: limesurvey_web
     restart: always
     networks:
