@@ -17,26 +17,31 @@ services:
       - proxy
     volumes:
       - mysql:/var/lib/mysql
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-      MYSQL_HOST: "localhost"
-      MYSQL_PORT: "3306"
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "limesurvey"
-      MYSQL_LOYALTY_DATABASE: "limesurvey"
-      MYSQL_USER: "limesurvey"
-      MYSQL_PASSWORD: "limesurvey"
+    env_file:
+      - mysql.env
+#    environment:
+#      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+#      MYSQL_HOST: "localhost"
+#      MYSQL_PORT: "3306"
+#      MYSQL_ROOT_PASSWORD: "root"
+#      MYSQL_DATABASE: "limesurvey"
+#      MYSQL_LOYALTY_DATABASE: "limesurvey"
+#      MYSQL_USER: "limesurvey"
+#      MYSQL_PASSWORD: "limesurvey"
   pma:
      image: phpmyadmin/phpmyadmin:4.7
      container_name: limesurvey_pma
      restart: always
      networks:
        - proxy
-     environment:
-       PMA_HOST: "limesurvey_mysql"
-       PMA_PORT: "3306"
-       PMA_USER: "root"
-       PMA_PASSWORD: "root"
+     env_file:
+       - phpmyadmin.env
+#     environment:
+#       PMA_ABSOLUTE_URI: https://app.daycohost.com/limesurvey_pma/
+#       PMA_HOST: "limesurvey_mysql"
+#       PMA_PORT: "3306"
+#       PMA_USER: "root"
+#       PMA_PASSWORD: "root"
      depends_on:
        - db
 volumes:
