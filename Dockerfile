@@ -1,7 +1,7 @@
-# https://hub.docker.com/_/php/
-
+# FILE: apache_php.Dockerfile (Original)
 FROM php:7.2.11-apache
 MAINTAINER Olaf Reitmaier <olafrv@gmail.com>
+
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -18,4 +18,13 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install imap \
     && docker-php-ext-install pdo pdo_mysql mysqli ldap zip \
 		&& docker-php-source delete
+
+# FILE: limesurvey.Dockerfile (Original)
+#FROM olafrv/apache_php:2.4_7.2
+#MAINTAINER Olaf Reitmaier <olafrv@gmail.com>
+WORKDIR /var/www/html/limesurvey
+COPY limesurvey .
+RUN chmod -R 777 ./tmp \
+		&& chmod -R 777 ./upload \
+		&& chmod -R 777 ./application/config
 
