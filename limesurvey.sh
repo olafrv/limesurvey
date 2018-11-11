@@ -39,9 +39,9 @@ END
 	do
   	if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != _* ]]
 		then 
-    	echo "Dumping database: $db" 
+			echo "Dumping database: $db" 
 			docker exec $MYCONT mysqldump -u $MYUSER -p$MYPASS --databases $db > $MYDDIR/db_$db.sql 
-    fi 
+		fi 
 	done 
 
 fi
