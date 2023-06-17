@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y \
 		&& apt-get clean \
 		&& docker-php-source extract \
     && docker-php-ext-configure gd \ 
-    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install -j$(nproc) gd \ 
+    && docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install imap \
     && docker-php-ext-install pdo pdo_mysql mysqli ldap zip \
 		&& docker-php-source delete
