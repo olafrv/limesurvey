@@ -64,6 +64,6 @@ Compose up/down the service stack or dump all mysql databases (backup):
 ## Backup
 
 You must fully backup the following directories:
-  * ./limesurvey
-  * ./limesurvey/backup (MySQL Dumps Destination)
+  * ./limesurvey (If you changed docker-compose volumes)
+  * ./backup (If you enabled the cron MySQL dumps)
 
