@@ -1,54 +1,64 @@
-version: '2'
-
+version: '3'
 services:
+
   web:
-    image: olafrv/limesurvey:3.15
+    image: olafrv/limesurvey:6.1.3
     build:
      context: .
      dockerfile: Dockerfile
     container_name: limesurvey_web
     restart: unless-stopped
+    ports:
+      - "8080:80"
     networks:
       - composed
+    volumes:
+      - ls_config:/var/www/html/limesurvey/application/config
+      - ls_upload:/var/www/html/limesurvey/upload
+      - ls_tmp:/var/www/html/limesurvey/tmp
     depends_on:
       - db
+
   db:
-    image: mysql:5.7.24
+    image: mysql:5.7.42
     container_name: limesurvey_mysql
     restart: unless-stopped
     networks:
       - composed
     volumes:
-      - mysql:/var/lib/mysql
-    env_file:
-      - mysql.env
-#    environment:
-#      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-#      MYSQL_HOST: "localhost"
-#      MYSQL_PORT: "3306"
-#      MYSQL_ROOT_PASSWORD: "root"
-#      MYSQL_DATABASE: "limesurvey"
-#      MYSQL_LOYALTY_DATABASE: "limesurvey"
-#      MYSQL_USER: "limesurvey"
-#      MYSQL_PASSWORD: "limesurvey"
+      - ls_mysql:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_HOST: "localhost"
+      MYSQL_PORT: "3306"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "limesurvey"
+      MYSQL_LOYALTY_DATABASE: "limesurvey"
+      MYSQL_USER: "limesurvey"
+      MYSQL_PASSWORD: "limesurvey"
+
   pma:
-     image: phpmyadmin/phpmyadmin:4.7
+     image: phpmyadmin/phpmyadmin:5.2.1
      container_name: limesurvey_pma
      restart: unless-stopped
+     ports:
+      - "8081:80"
      networks:
       - composed
-     env_file:
-       - phpmyadmin.env
-#     environment:
-#       PMA_ABSOLUTE_URI: https://app.daycohost.com/limesurvey_pma/
-#       PMA_HOST: "limesurvey_mysql"
-#       PMA_PORT: "3306"
-#       PMA_USER: "root"
-#       PMA_PASSWORD: "root"
+     environment:
+       PMA_ABSOLUTE_URI: https://localhost/limesurvey/
+       PMA_HOST: "limesurvey_mysql"
+       PMA_PORT: "3306"
+       PMA_USER: "root"
+       PMA_PASSWORD: "root"
      depends_on:
        - db
+
 volumes:
-    mysql:
+    ls_mysql:
+    ls_config:
+    ls_upload:
+    ls_tmp:
 
 networks:
   composed:
