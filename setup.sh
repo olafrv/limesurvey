@@ -13,10 +13,10 @@ then
 
 elif [ "$1" == "push" ]
 then
-
-	docker login --username=olafrv
-	docker push $IMAGE
-	docker logout
+	echo "Deprecated from hub.docker.com!"
+#	docker login --username=olafrv
+#	docker push $IMAGE
+#	docker logout
 
 elif [ "$1" == "up" ]
 then
